@@ -1,2 +1,4 @@
 config/sandbox
 sandbox.db
+env
+__pycache__
