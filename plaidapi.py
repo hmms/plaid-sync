@@ -56,16 +56,14 @@ def parse_optional_iso8601_timestamp(ts: Optional[str]) -> datetime.datetime:
     return datetime.datetime.fromisoformat(re.sub(r"[.][0-9]+Z", "+00:00", ts))
 
 
-# def raise_plaid(ex: plaid.errors.ItemError):
-#     if ex.code == 'NO_ACCOUNTS':
-#         raise PlaidNoApplicableAccounts(ex)
-#     elif ex.code == 'ITEM_LOGIN_REQUIRED':
-#         raise PlaidAccountUpdateNeeded(ex)
-#     else:
-#         raise PlaidUnknownError(ex)
-def raise_plaid():
-    #ex: plaid.errors.ItemError
-    print("Error occured")
+def raise_plaid(ex: plaid.errors.ItemError):
+    if ex.code == 'NO_ACCOUNTS':
+        raise PlaidNoApplicableAccounts(ex)
+    elif ex.code == 'ITEM_LOGIN_REQUIRED':
+        raise PlaidAccountUpdateNeeded(ex)
+    else:
+        raise PlaidUnknownError(ex)
+
 
 def wrap_plaid_error(f):
     def wrap(*args, **kwargs):
