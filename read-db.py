@@ -2,6 +2,7 @@ import sqlite3
 from sqlite3 import Error
 import json
 import csv
+import os
 
 
 def create_connection(db_file):
@@ -111,13 +112,14 @@ def main():
                 del my_dict[key]
 
             array.append(my_dict)
-            print (my_dict)
+            #print (my_dict.keys())
             
-            w = csv.DictWriter(f, my_dict.keys())
-            w.writeheader()    
-        with open('mycsvfile.csv', 'a') as f:  # You will need 'wb' mode in Python 2.x
-                w.writerow(my_dict)   
-        
+            
+        keys = array[0].keys()
+        with open('transactions.csv', 'w', newline='') as output_file:
+            dict_writer = csv.DictWriter(output_file, keys)
+            dict_writer.writeheader()
+            dict_writer.writerows(array)
 
         
         cursor.close()
@@ -143,7 +145,6 @@ def main():
             # will print "the sqlite connection is
             # closed"
             print("the sqlite connection is closed")
-
 
 if __name__ == '__main__':
     main()
